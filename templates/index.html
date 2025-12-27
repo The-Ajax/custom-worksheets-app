@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form action="/generate" method="post" class="form-card">
+        <label>Subject</label>
+        <input type="text" name="subject" placeholder="e.g., Algebra, Science" required>
+
+        <label>Difficulty</label>
+        <select name="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+
+        <label>Number of Problems</label>
+        <input type="number" name="num_problems" placeholder="e.g., 10" min="1" max="20" required>
+
+        <label>Additional Info</label>
+        <textarea name="add_info" rows="4" placeholder="Any special instructions..." required></textarea>
+
+        <button type="submit" id="submit-btn">Generate PDF</button>
+    </form> 
+</div>
+
+<div id="loading-popup" style="display: none;">
+    <div class="loading-overlay"></div>
+    <div class="loading-content">
+        <div class="spinner"></div>
+        <p>Generating problem sheet...</p>
+        <p class="loading-subtext">This may take a few moments</p>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById("submit-btn").addEventListener("click", function() {
+        document.getElementById("loading-popup").style.display = "block";
+    });
+</script>
+</script>
+{% endblock %}

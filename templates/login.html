@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h2>Login</h2>
+<form id="login-form">
+    <label>Username</label>
+    <input type="text" id="username" required><br>
+
+    <label>Password:</label>
+    <input type="password" id="password" required><br>
+
+    <button type="submit">Login</button>
+    <a href="/signup" id="signup-link">Don't Have an Account? Sign up</a>
+</form>
+
+<p id="message"></p>
+
+<script>
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new URLSearchParams();
+        formData.append("username", document.getElementById("username").value);
+        formData.append("password", document.getElementById("password").value);
+
+        const res = await fetch("/token", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: formData.toString()
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            document.getElementById("message").textContent = "Login successful!";
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 500);
+        } else {
+            document.getElementById("message").textContent = "Login failed!";
+        }
+    });
+</script>
+{% endblock %}

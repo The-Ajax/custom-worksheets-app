@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+    <nav class="main-navbar">
+        <div class="nav-left">
+            <a href="/">Home</a>
+            <a href="/problem_sheets" id="problem-sheets-link" style="display:none;">Problem Sheets</a>
+        </div>
+
+        <div class="nav-right" id="auth-links">
+            <a href="/login" id="login-link" style="display:none;">Login</a>
+            <button type="button" id="logout-button" class="nav-logout-button" style="display:none;">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+                const [key, value] = cookie.trim().split('=');
+                acc[key] = value;
+                return acc;
+            }, {});
+
+            const loginLink = document.getElementById("login-link");
+            const logoutButton = document.getElementById("logout-button");
+            const problemSheetsLink = document.getElementById("problem-sheets-link");
+
+            if (cookies['access_token']) {
+                console.log("User is logged in");
+                loginLink.style.display = "none";
+                logoutButton.style.display = "inline";
+                problemSheetsLink.style.display = "inline";
+            } else {
+                loginLink.style.display = "inline";
+                logoutButton.style.display = "none";
+                problemSheetsLink.style.display = "none";
+            }
+        });
+
+        document.getElementById("logout-button")?.addEventListener("click", async function() {
+            const res = await fetch("/logout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" }
+            });
+
+            if (res.ok) {
+                window.location.href = "/";
+            }
+        });
+    </script>
+
+</body>
+</html>

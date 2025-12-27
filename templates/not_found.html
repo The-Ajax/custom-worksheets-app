@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Not Found{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Problem Sheet Not Found</h1>
+    <p>No problem sheet found for ID: {{ sheet_id }}</p>
+    <a href="/" class="button">← Back to Home</a>
+</div>
+{% endblock %}

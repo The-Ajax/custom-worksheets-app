@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<h2>Sign Up</h2>
+<form id="register-form">
+    <label>Username</label>
+    <input type="text" id="username" required><br>
+
+    <label>Full Name</label>
+    <input type="text" id="full-name" required><br>
+
+    <label>Password:</label>
+    <input type="password" id="password" required><br>
+
+    <button type="submit">Create Account</button>
+</form>
+
+<p id="message"></p>
+
+<script>
+    document.getElementById("register-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const res = await fetch("/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username: document.getElementById("username").value,
+                full_name: document.getElementById("full-name").value,
+                password: document.getElementById("password").value
+            })
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            document.getElementById("message").textContent = "User creation successful!";
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 500);
+        } else {
+            document.getElementById("message").textContent = "Username Already Registered!"; // Test this
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Problem Sheet Details{% endblock %}
+
+{% block content %}
+
+<div class="container-detail">
+    <h1>Problem Sheet Details</h1>
+
+    <div class="card-detail">
+        <p><strong>ID:</strong> {{ sheet.id }}</p>
+        <p><strong>Subject:</strong> {{ sheet.subject }}</p>
+        <p><strong>Difficulty:</strong> {{ sheet.difficulty }}</p>
+        <p><strong>Number of Problems:</strong> {{ sheet.num_problems }}</p>
+        <p><strong>Additional Info:</strong> {{ sheet.additional_info or "None" }}</p>
+        <p><strong>Created At:</strong> {{ sheet.created_at.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+        <p><strong>User:</strong> {{ sheet.username }}</p> 
+        {% if sheet.file_path %}
+            <a href="/problem_sheets/{{ sheet.id }}/download" class="button-small">Download PDF</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
