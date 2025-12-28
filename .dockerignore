@@ -9,3 +9,5 @@ pdfs/*
 !pdfs/.gitkeep
 math_svgs/*
 !math_svgs/.gitkeep
+data/*
+!data/.gitkeep

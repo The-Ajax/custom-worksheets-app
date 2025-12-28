@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sess
 
 from models import Base
 
-DATABASE_URL = "sqlite+aiosqlite:///problemsheet_gen.db"
+DATABASE_URL = "sqlite+aiosqlite:///data/problemsheet_gen.db"
 
 engine = create_async_engine(DATABASE_URL)
 

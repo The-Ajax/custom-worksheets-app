@@ -8,5 +8,5 @@ services:
     env_file:
       - .env
     volumes:
-      - ./problemsheet_gen.db:/app/problemsheet_gen.db
+      - ./data:/app/data
       - ./pdfs:/app/pdfs
